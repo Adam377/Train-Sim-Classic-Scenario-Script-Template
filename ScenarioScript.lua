@@ -31,11 +31,18 @@ KMH = 3.6
 gSpeedUnits = MPH
 -- playerSpeed = math.abs(SysCall("PlayerEngine:GetSpeed")) * gSpeedUnits
 -- SysCall("ScenarioManager:BeginConditionCheck", "")
+-- SysCall("ScenarioManager:EndConditionCheck", "")
+-- SysCall("ScenarioManager:LockControls")
+-- SysCall("ScenarioManager:UnlockControls")
 
 -- SysCall("PlayerEngine:SetControlValue", "", 0, 0)
 
 function OnEvent(event)
 	_G["OnEvent" .. event]()
+end
+
+function TestCondition(condition)
+	_G["TestCondition" .. condition]()
 end
 
 --------------------------------------------------------------------------------
