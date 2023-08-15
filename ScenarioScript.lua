@@ -1,5 +1,5 @@
 -- SCENARIO NAME
--- By Adam Haigh
+-- By [AUTHOR NAME]
 
 -- define true/false
 FALSE = 0
@@ -54,12 +54,10 @@ end
 -- INTRO STUFF --
 --------------------------------------------------------------------------------
 function OnEventIntroMovie()
-	SysCall("ScenarioManager:LockControls")
 	SysCall("CameraManager:ActivateCamera", "camera", 0)
 end
 
 function OnEventForceCabCamera()
-	SysCall ( "ScenarioManager:UnlockControls")
 	SysCall("CameraManager:ActivateCamera", "CabCamera", 0)
 end
 
@@ -88,7 +86,7 @@ end
 function OnEventOutroMessage()
 	SysCall(
 		"ScenarioManager:TriggerScenarioComplete",
-		"This is Kirkcaldy, where the next driver is here to take over to Dyce. Good work this morning! Scenario by Adam Haigh."
+		"Insert outro message."
 	)
 end
 
@@ -106,3 +104,4 @@ function DisplayTopLeftPopupMessage(title, content, hasPause)
 		hasPause
 	)
 end
+-- hasPause takes TRUE/FALSE as values (i.e. it's boolean)
