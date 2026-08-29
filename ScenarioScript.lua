@@ -2,33 +2,33 @@
 -- By [AUTHOR NAME]
 
 -- define true/false
-FALSE = 0
-TRUE = 1
+local FALSE = 0
+local TRUE = 1
 
 -- condition return values
-CONDITION_NOT_YET_MET = 0
-CONDITION_SUCCEEDED = 1
-CONDITION_FAILED = 2
+local CONDITION_NOT_YET_MET = 0
+local CONDITION_SUCCEEDED = 1
+local CONDITION_FAILED = 2
 
 -- message types
-MT_INFO = 0
-MT_ALERT = 1
+local MT_INFO = 0
+local MT_ALERT = 1
 
-MSG_TOP = 1
-MSG_VCENTRE = 2
-MSG_BOTTOM = 4
-MSG_LEFT = 8
-MSG_CENTRE = 16
-MSG_RIGHT = 32
+local MSG_TOP = 1
+local MSG_VCENTRE = 2
+local MSG_BOTTOM = 4
+local MSG_LEFT = 8
+local MSG_CENTRE = 16
+local MSG_RIGHT = 32
 
-MSG_SMALL = 0
-MSG_REG = 1
-MSG_LRG = 2
+local MSG_SMALL = 0
+local MSG_REG = 1
+local MSG_LRG = 2
 
 -- speed variables
-MPH = 2.23693629
-KMH = 3.6
-gSpeedUnits = MPH
+local MPH = 2.23693629
+local KMH = 3.6
+local gSpeedUnits = MPH
 -- playerSpeed = math.abs(SysCall("PlayerEngine:GetSpeed")) * gSpeedUnits
 -- SysCall("ScenarioManager:BeginConditionCheck", "")
 -- SysCall("ScenarioManager:EndConditionCheck", "")
@@ -36,6 +36,8 @@ gSpeedUnits = MPH
 -- SysCall("ScenarioManager:UnlockControls")
 
 -- SysCall("PlayerEngine:SetControlValue", "", 0, 0)
+-- SysCall("ScenarioManager:TriggerDeferredEvent", "", 0)
+-- SysCall("PlayerEngine:GetControlValue", "", 0)
 
 function OnEvent(event)
 	_G["OnEvent" .. event]()
@@ -62,10 +64,14 @@ end
 --------------------------------------------------------------------------------
 function OnEventIntroMovie()
 	SysCall("CameraManager:ActivateCamera", "camera", 0)
+
+	SysCall("ScenarioManager:TriggerDeferredEvent", "ForceCabCamera", 1)
 end
 
 function OnEventForceCabCamera()
 	SysCall("CameraManager:ActivateCamera", "CabCamera", 0)
+
+	SysCall("ScenarioManager:TriggerDeferredEvent", "IntroMessage", 2)
 end
 
 function OnEventIntroMessage()
@@ -88,6 +94,22 @@ function StopDisplayIntroMessage()
 end
 
 --------------------------------------------------------------------------------
+--  --
+--------------------------------------------------------------------------------
+--[[
+function OnEvent()
+	DisplayRecordedMessage("")
+end
+
+function StartDisplay()
+	DisplayTopLeftPopupMessage("", "")
+end
+
+function StopDisplay()
+end
+]]
+
+--------------------------------------------------------------------------------
 -- OUTRO MESSAGE --
 --------------------------------------------------------------------------------
 function OnEventOutroMessage()
@@ -100,7 +122,7 @@ end
 --------------------------------------------------------------------------------
 -- OTHER FUNCTIONS --
 --------------------------------------------------------------------------------
-function DisplayTopLeftPopupMessage(title, content, hasPause)
+function DisplayTopLeftPopupMessage(title, content)
 	SysCall(
 		"ScenarioManager:ShowInfoMessageExt",
 		title,
@@ -108,7 +130,6 @@ function DisplayTopLeftPopupMessage(title, content, hasPause)
 		0,
 		MSG_TOP + MSG_LEFT,
 		MSG_SMALL,
-		hasPause
+		FALSE
 	)
 end
--- hasPause takes TRUE/FALSE as values (i.e. it's boolean)
