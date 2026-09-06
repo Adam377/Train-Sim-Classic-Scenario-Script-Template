@@ -6,5 +6,5 @@ function GetDelayMinutes(bookedArrivalTime)
 
 	actualArrivalTime = SysCall("ScenarioManager:GetTimeOfDay")
 
-	return tostring(Math.floor((actualArrivalTime - bookedArrivalTimeSeconds) / 60))
+	return tostring(math.floor((actualArrivalTime - bookedArrivalTimeSeconds) / 60))
 end
